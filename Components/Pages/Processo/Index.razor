@@ -1,4 +1,7 @@
 ﻿@page "/processos"
+@using AppWebMayara.Model
+@using AppWebMayara.DAO
+@inject ProcessoDAO ProcessoDAO
 
 <PageTitle>Processo - Sistema de Controle de Processos</PageTitle>
 
@@ -23,19 +26,28 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>12345</td>
-					<td>Mayara</td>
-					<td>Assunto do Processo</td>
-					<td>Pendente</td>
-					<td>caroço</td>
-				</tr>
+				@foreach (var processo in processos)
+				{
+					<tr>
+                        <td>@processo.Id</td>
+                        <td>@processo.Numero</td>
+                        <td>@processo.Interessado</td>
+                        <td>@processo.Assunto</td>
+                        <td>@processo.Situacao</td>
+                        <td></td>
+					</tr>
+				}
 			</tbody>
 		</table>
 	</div>
 </div>
 
 @code {
+	private List<Processo> processos = new();
+	protected override void OnInitialized()
+	{
+		// Chama o DAO para buscar os dados no banco
+		processos = ProcessoDAO.Listar();
 
+	}
 }
