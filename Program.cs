@@ -1,6 +1,6 @@
 using AppWebMayara.Components;
-using AppWebExemplo.Configs;
-using AppWebExemplo.DAO;
+using AppWebMayara.Configs;
+using AppWebMayara.DAO;
 
 var builder = WebApplication.CreateBuilder(args);
 

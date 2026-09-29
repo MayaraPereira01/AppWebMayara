@@ -1,0 +1,105 @@
+﻿@page "/processos/cadastro"
+
+@rendermode InteractiveServer
+
+@using AppWebMayara.Model
+@using AppWebMayara.DAO
+
+@inject ProcessoDAO dao
+@inject NavigationManager NavigationManager
+
+<PageTitle>Novo Processo - Sistema de Controle de Processos</PageTitle>
+
+<h1>Novo Processo - Sistema de Controle de Processos</h1>
+
+<h2>Cadastro de Processo</h2>
+
+<EditForm Model="processo" OnValidSubmit="Salvar">
+
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label>Número</label>
+
+        <InputText class="form-control"
+                   @bind-Value="processo.Numero" />
+
+        <ValidationMessage For="@(() => processo.Numero)" />
+    </div>
+
+    <div class="mb-3">
+        <label>Data</label>
+
+        <InputDate class="form-control"
+                   @bind-Value="processo.Data" />
+
+        <ValidationMessage For="@(() => processo.Data)" />
+    </div>
+
+    <div class="mb-3">
+        <label>Situação</label>
+
+        <InputSelect class="form-control"
+                     @bind-Value="processo.Situacao">
+
+            <option value="Aberto">Aberto</option>
+            <option value="Em análise">Em análise</option>
+            <option value="Pendente">Pendente</option>
+            <option value="Concluído">Concluído</option>
+            <option value="Arquivado">Arquivado</option>
+
+        </InputSelect>
+
+        <ValidationMessage For="@(() => processo.Situacao)" />
+    </div>
+
+    <div class="mb-3">
+        <label>Interessado</label>
+
+        <InputText class="form-control"
+                   @bind-Value="processo.Interessado" />
+
+        <ValidationMessage For="@(() => processo.Interessado)" />
+    </div>
+
+    <div class="mb-3">
+        <label>Assunto</label>
+
+        <InputText class="form-control"
+                   @bind-Value="processo.Assunto" />
+
+        <ValidationMessage For="@(() => processo.Assunto)" />
+    </div>
+
+    <div class="mb-3">
+        <label>Descrição</label>
+
+        <InputTextArea class="form-control"
+                       @bind-Value="processo.Descricao" />
+
+        <ValidationMessage For="@(() => processo.Descricao)" />
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary">
+        Salvar
+    </button>
+
+    <a href="/processos"
+           class="btn btn-secondary">
+        Cancelar
+    </a>
+
+</EditForm>
+
+@code
+{
+    private Processo processo = new();
+
+    private void Salvar()
+    {
+        dao.Inserir(processo);
+
+        NavigationManager.NavigateTo("/processos");
+    }
+}

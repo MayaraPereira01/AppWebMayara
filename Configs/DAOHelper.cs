@@ -51,7 +51,8 @@ namespace AppWebMayara.Configs
             string column_name)
         {
             return reader.IsDBNull(
-                reader.GetOrdinal(column_name));
+                reader.GetOrdinal(column_name)
+            );
         }
     }
 }
